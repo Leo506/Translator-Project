@@ -1,19 +1,19 @@
 def ad_to_buffer(string, buffer2):
+    '''Функция, добавляющая в список другой список, как строку'''
     string2 = ''
     for j in string:
         string2 += j
-    buffer2.append(string2)
-    buffer2.append(':')
-    buffer2.append('\n\t')
+    buffer2.extend([string2, ':\n\t'])
 
 
 def ad_if(buffer2, i):
-    buffer2.append('if')
-    if ' и ' in i:
-        string = [j for j in i[4:-1]]
+    '''Функция, для ветвления'''
+    buffer2.append('if')                  # добавляем служебное слово if
+    if ' и ' in i:                        # если есть логический оператор "И"
+        string = [j for j in i[4:-1]]     # то заменяем "и" на "and"
         string[string.index('и')] = 'and'
-        ad_to_buffer(string, buffer2)
-    elif 'или' in i:
+        ad_to_buffer(string, buffer2)     # и добавляем в список
+    elif 'или' in i:                      # так же как и с "И" делаем со всеми логическими операторами
         string = [j for j in i[4:-1]]
         string[string.index('и'):string.index('и') + 3] = 'or'
         ad_to_buffer(string, buffer2)
